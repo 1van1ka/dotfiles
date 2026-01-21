@@ -1,0 +1,7 @@
+[general]
+import = [ "~/.config/alacritty/themes/pywall.toml" ]
+
+[font]
+normal.family = "JetBrains Mono"
+normal.style = "Medium"
+size = 13

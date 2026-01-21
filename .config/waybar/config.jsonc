@@ -1,0 +1,176 @@
+{
+	"fixed-center": false,
+	"position": "top",
+	"spacing": 0,
+  "modules-left": [
+    "ext/workspaces",
+    "group/hardware",
+    "dwl/window"
+  ],
+	"modules-right": [
+    "group/light",
+    "group/volume",
+    "tray",
+    "network",
+    "group/power",
+    "custom/mako",
+		"clock"
+	],
+  "group/hardware": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/arrow-right",
+      "cpu",
+      "memory",
+      "temperature"
+    ]
+  },
+  "group/power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "battery",
+      "power-profiles-daemon"
+    ]
+  },
+  "group/light": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "backlight",
+      "backlight/slider"
+    ]
+  },
+  "group/volume": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio/slider"
+    ]
+  },
+  "ext/workspaces": {
+    "format": "{icon}",
+    "ignore-hidden": false,
+    "on-click": "activate"
+  },
+  "dwl/window": {
+    "format": "[{layout}] {title}"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10
+  },
+	"clock": {
+    "format": "{:%a %H:%M %d.%m.%y}",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "interval": 20
+	},
+	"cpu": {
+		"format": "{avg_frequency:0.1f}GHz {usage:02d}%",
+		"tooltip": false,
+		"interval": 3
+	},
+  "memory": {
+    "format": "{used:0.2f}GiB",
+    "tooltip-format": "RAM: {used:0.2f}/{total:0.2f} GiB ({percentage}%)\nSwap: {swapUsed:0.1f}/{swapTotal:0.1f} GiB ({swapPercentage}%)",
+    "tooltip": true,
+    "interval": 5
+  },
+  "temperature": {
+    "format": "{temperatureC}°C"
+  },
+  "custom/mako": {
+    "exec": "[ \"$(makoctl mode | grep do-not-disturb)\" ] && echo DND",
+    "signal": 5,
+    "tooltip": true
+  },
+  "upower": {
+    "native-path": "BAT0",
+    "format": "{percentage}",
+    "format-alt": "{percentage} {time}",
+    "icon-size": 20,
+    "show-icon": true,
+    "tooltip": false,
+    "hide-if-empty": true
+  },
+	"battery": {
+		"interval": 5,
+		"states": {
+			"warning": 30,
+			"critical": 20
+		},
+		"tooltip": true,
+    "tooltip-format": "{capacity}% {power:0.2f}W {time}",
+    "format-time": "{H:02d}:{M:02d}",
+		"format": "{icon}  {capacity}% {time}",
+		"format-plugged": "  {capacity}%",
+		"format-icons": ["", "", "", "", ""]
+	},
+	"network": {
+		"format-wifi": "  {signalStrength}%",
+		"format-ethernet": "{cidr}",
+		"tooltip-format": "{ifname} {essid}\nvia {gwaddr}",
+		"format-linked": "{ifname} (No IP)",
+		"format-disconnected": "⚠",
+		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+	},
+  "backlight": {
+    "format": "{icon} {percent:02d}%",
+    "format-icons": ["󱩏", "󱩑", "󱩔", "󱩖"],
+    "scroll-step": 0
+  },
+  "backlight/slider": {
+    "min": 1,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+	"pulseaudio": {
+		"format": "{icon} {volume:02d}%",
+    "format-bluetooth": " {icon} {volume:02d}%",
+		"format-icons": {
+			"headphone": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", ""]
+		},
+    "scroll-step": 0,
+		"on-click": "pavucontrol"
+	},
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "power-profiles-daemon": {
+    "format": "NW {icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "performance": "",
+      "balanced": " " ,
+      "power-saver": " "
+    }
+  },
+  "custom/arrow-left": {
+    "format": "&lt;&lt;"
+  },
+  "custom/arrow-right": {
+    "format": "&gt;&gt;"
+  }
+}

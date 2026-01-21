@@ -1,0 +1,11 @@
+show=drun
+width=30%
+height=35%
+prompt=Search...
+allow_images=true
+image_size=48
+insensitive=true
+allow_markup=true
+orientation=vertical
+halign=fill
+content_halign=fill

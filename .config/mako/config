@@ -1,0 +1,43 @@
+# Global settings
+font=JetBrains Mono 12
+sort=+time
+default-timeout=5000
+width=420
+height=250
+anchor=bottom-right
+outer-margin=0,0,5
+margin=5
+border-size=3
+border-radius=6
+
+# Icons
+icons=1
+icon-location=left
+max-icon-size=48
+markup=1
+actions=1
+
+# Mouse bindings
+on-button-left=dismiss
+on-button-right=dismiss-all
+on-button-middle=exec makoctl menu -n "$id" -- wofi --dmenu -p "Select action:"
+
+format=<b>%a</b>\n<i>%s</i>\n %b\n
+max-visible=3
+
+# Urgency colors
+background-color=#2F3031
+border-color=#5a5a5c
+text-color=#ffffff
+
+[urgency=critical]
+background-color=#810101
+border-color=#b32424
+text-color=#ffffff
+
+# Mode: do-not-disturb (except critical)
+[mode=do-not-disturb]
+invisible=1
+
+[mode=do-not-disturb urgency=critical]
+invisible=0

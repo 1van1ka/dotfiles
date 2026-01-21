@@ -1,0 +1,60 @@
+@define-color bg rgba(45, 45, 45, 0.65);
+@define-color bg-alt rgba(70, 70, 70, 0.8);
+@define-color valid rgba(45, 110, 75, 0.9);
+@define-color warning rgba(140, 110, 50, 0.95);
+@define-color critical rgba(130, 40, 40, 1);
+
+* {
+  font-family: "JetBrains Mono";
+  font-weight: 800;
+  font-size: 16px;
+}
+
+
+#cpu, #memory, #disk, #network,
+#tray, #temperature, #battery,
+#clock, #window, #mpd,
+#power-profiles-daemon, 
+#pulseaudio, #pulseaudio-slider,
+#backlight, #backlight-slider,
+#custom-arrow-left, #custom-arrow-right,
+#custom-mako, #upower {
+  margin: 3px 3px;
+  padding: 0 10px;
+  background: @bg;
+  border-radius: 4px;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  min-height: 8px;
+  min-width: 240px;
+  background: black;
+}
+
+#workspaces button {
+  padding: 0 6px;
+  border: 0;
+}
+
+#workspaces button:hover {
+  background: @bg-alt;
+  border-radius: 8px;
+}
+
+#workspaces button.active {
+  background: @bg;
+  border-radius: 8px;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#upower.discharging,
+#battery.discharging {
+  background: @warning;
+}
+
+#battery.charging,
+#upower.charging {
+  background: @valid;
+}
