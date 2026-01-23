@@ -1,0 +1,44 @@
+#!/bin/sh
+
+WALLDIR="$HOME/Pictures/wallpapers"
+CACHE="$HOME/.cache/wofi-wallpapers"
+
+mkdir -p "$CACHE"
+
+echo $PATH
+
+for img in "$WALLDIR"/*.{jpg,jpeg,png,webp}; do
+  [ -e "$img" ] || continue
+
+  name=$(basename "$img")
+  preview="$CACHE/$name.png"
+
+  if [ ! -f "$preview" ]; then
+    ffmpeg -loglevel quiet -y \
+      -i "$img" \
+      -vf "scale=256:-1:flags=lanczos" \
+      -frames:v 1 "$preview"
+  fi
+done
+
+choice=$(ls "$WALLDIR" | wofi \
+  --dmenu \
+  --prompt "Wallpaper"
+)
+
+[ -z "$choice" ] && exit
+
+WALL="$WALLDIR/$choice"
+
+wal -i "$WALL"
+
+pywall_gtk
+pywall_qt
+pywall_alacritty
+$HOME/.local/bin/pywalfox update
+
+[ -n "$(pgrep waybar)" ] && pkill waybar && waybar &
+
+swww img "$WALL" & 
+
+disown

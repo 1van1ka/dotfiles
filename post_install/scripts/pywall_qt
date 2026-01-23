@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+WAL_COLORS = Path.home() / ".cache/wal/colors.json"
+OUT_FILE = Path.home() / ".config/qt5ct/colors/pywal.conf"
+
+
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip("#")
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    return r, g, b
+
+
+with open(WAL_COLORS) as f:
+    wal = json.load(f)
+
+colors = wal["special"] | wal["colors"]
+
+def rgb(name):
+    r, g, b = hex_to_rgb(colors[name])
+    return f"{r},{g},{b}"
+
+def hx(name):
+    return colors[name]
+
+
+content = f"""[ColorScheme]
+active_colors={hx("foreground")}, {hx("background")}, {hx("color0")}, {hx("color8")}, {hx("color1")}, {hx("color8")}, {hx("foreground")}, {hx("color4")}, {hx("foreground")}, {hx("background")}, {hx("background")}, {hx("color0")}, {hx("color4")}, {hx("background")}, {hx("color6")}, {hx("color6")}, {hx("color0")}, {hx("background")}, {hx("background")}, {hx("color7")}, {hx("color7")}
+disabled_colors={hx("color7")}, {hx("color0")}, {hx("color0")}, {hx("color8")}, {hx("color0")}, {hx("color8")}, {hx("color7")}, {hx("color7")}, {hx("color7")}, {hx("color0")}, {hx("color0")}, {hx("color0")}, {hx("color0")}, {hx("color7")}, {hx("color7")}, {hx("color7")}, {hx("color0")}, {hx("color0")}, {hx("color0")}, {hx("color7")}, {hx("color7")}
+inactive_colors={hx("color7")}, {hx("background")}, {hx("color0")}, {hx("color8")}, {hx("color1")}, {hx("color8")}, {hx("color7")}, {hx("color7")}, {hx("color7")}, {hx("background")}, {hx("background")}, {hx("color0")}, {hx("color6")}, {hx("background")}, {hx("color6")}, {hx("color6")}, {hx("color0")}, {hx("background")}, {hx("background")}, {hx("color7")}, {hx("color7")}
+
+[ColorEffects:Disabled]
+Color={rgb("color7")}
+ColorAmount=0
+ColorEffect=0
+ContrastAmount=0.65
+ContrastEffect=1
+IntensityAmount=0.1
+IntensityEffect=2
+
+[ColorEffects:Inactive]
+ChangeSelectionColor=true
+Color={rgb("color8")}
+ColorAmount=0.025
+ColorEffect=2
+ContrastAmount=0.1
+ContrastEffect=2
+Enable=false
+IntensityAmount=0
+IntensityEffect=0
+"""
+
+def colors_section(name, bg, fg):
+    return f"""
+[Colors:{name}]
+BackgroundAlternate={rgb("color0")}
+BackgroundNormal={rgb(bg)}
+DecorationFocus={rgb("color4")}
+DecorationHover={rgb("color4")}
+ForegroundActive={rgb("color4")}
+ForegroundInactive={rgb("color7")}
+ForegroundLink={rgb("color6")}
+ForegroundNegative={rgb("color1")}
+ForegroundNeutral={rgb("color3")}
+ForegroundNormal={rgb(fg)}
+ForegroundPositive={rgb("color2")}
+ForegroundVisited={rgb("color5")}
+"""
+
+content += colors_section("Button", "background", "foreground")
+content += colors_section("Complementary", "background", "foreground")
+content += colors_section("Header", "color0", "foreground")
+content += colors_section("Selection", "color4", "background")
+content += colors_section("Tooltip", "color0", "foreground")
+content += colors_section("View", "background", "foreground")
+content += colors_section("Window", "background", "foreground")
+
+content += f"""
+[WM]
+activeBackground={rgb("color0")}
+activeBlend={rgb("foreground")}
+activeForeground={rgb("foreground")}
+inactiveBackground={rgb("background")}
+inactiveBlend={rgb("color7")}
+inactiveForeground={rgb("color7")}
+"""
+
+OUT_FILE.write_text(content)
+print("QT colors applied")

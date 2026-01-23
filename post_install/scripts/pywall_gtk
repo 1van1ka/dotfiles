@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+WAL = Path.home() / ".cache/wal/colors.json"
+GTK4 = Path.home() / ".config/gtk-4.0"
+GTK3 = Path.home() / ".config/gtk-3.0"
+
+GTK4.mkdir(parents=True, exist_ok=True)
+GTK3.mkdir(parents=True, exist_ok=True)
+
+with open(WAL, "r", encoding="utf-8") as f:
+    wal = json.load(f)
+
+c = wal["colors"]
+s = wal["special"]
+
+# =========================================================
+# GTK4 / libadwaita (semantic colors only)
+# =========================================================
+css = f"""/*
+ * generated from pywal
+ */
+
+@define-color accent_bg_color {c["color4"]};
+@define-color accent_fg_color {s["background"]};
+
+@define-color window_bg_color {s["background"]};
+@define-color window_fg_color {s["foreground"]};
+
+@define-color view_bg_color {c["color0"]};
+@define-color view_fg_color {s["foreground"]};
+
+@define-color headerbar_bg_color {c["color0"]};
+@define-color headerbar_fg_color {s["foreground"]};
+
+@define-color sidebar_bg_color {c["color8"]};
+@define-color sidebar_fg_color {s["foreground"]};
+
+@define-color card_bg_color {c["color8"]};
+@define-color card_fg_color {s["foreground"]};
+
+@define-color popover_bg_color {c["color8"]};
+@define-color popover_fg_color {s["foreground"]};
+
+@define-color dialog_bg_color {c["color0"]};
+@define-color dialog_fg_color {s["foreground"]};
+
+@define-color destructive_bg_color {c["color1"]};
+@define-color destructive_fg_color {s["background"]};
+@define-color error_bg_color {c["color1"]};
+@define-color error_fg_color {s["background"]};
+
+@define-color theme_selected_bg_color @accent_bg_color;
+@define-color theme_selected_fg_color @accent_fg_color;
+
+@define-color theme_unfocused_bg_color @window_bg_color;
+@define-color theme_unfocused_fg_color @window_fg_color;
+@define-color theme_unfocused_base_color @view_bg_color;
+@define-color theme_unfocused_text_color @view_fg_color;
+@define-color theme_unfocused_selected_bg_color @accent_bg_color;
+@define-color theme_unfocused_selected_fg_color @accent_fg_color;
+"""
+
+(GTK3 / "colors.css").write_text(css, encoding="utf-8")
+(GTK4 / "colors.css").write_text(css, encoding="utf-8")
+
+print("GTK colors applied")

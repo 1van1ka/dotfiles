@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+WAL_COLORS = Path.home() / ".cache/wal/colors.json"
+OUT_FILE = Path.home() / ".config/alacritty/themes/pywall.toml"
+
+with open(WAL_COLORS) as f:
+    wal = json.load(f)
+
+colors = wal["special"] | wal["colors"]
+
+def hx(name: str) -> str:
+    return colors[name]
+
+
+content = f"""[colors.primary]
+background = '{hx("background")}'
+foreground = '{hx("foreground")}'
+"""
+
+def colors_section(name: str) -> str:
+    return f"""
+[colors.{name}]
+black   = '{hx("color0")}'
+red     = '{hx("color1")}'
+green   = '{hx("color2")}'
+yellow  = '{hx("color3")}'
+blue    = '{hx("color4")}'
+magenta = '{hx("color5")}'
+cyan    = '{hx("color6")}'
+white   = '{hx("color7")}'
+"""
+
+content += colors_section("normal")
+content += colors_section("bright")
+
+OUT_FILE.write_text(content)
+
+print("alacritty colors applied")
