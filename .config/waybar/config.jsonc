@@ -89,7 +89,7 @@
 	    "format": "{stateIcon} {randomIcon}{repeatIcon} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
 	    "format-disconnected": "Disconnected",
 	    "format-stopped": "{randomIcon}{repeatIcon} Stopped",
-	    "interval": 10,
+	    "interval": 0,
 	    "random-icons": {
 		"on": " "
 	    },
@@ -117,7 +117,7 @@
     "format": "{used:0.2f}GiB",
     "tooltip-format": "RAM: {used:0.2f}/{total:0.2f} GiB ({percentage}%)\nSwap: {swapUsed:0.1f}/{swapTotal:0.1f} GiB ({swapPercentage}%)",
     "tooltip": true,
-    "interval": 5
+    "interval": 10
   },
   "temperature": {
     "format": "{temperatureC}°C"
@@ -131,8 +131,7 @@
     "native-path": "BAT0",
     "format": "{percentage}",
     "format-alt": "{percentage} {time}",
-    "icon-size": 20,
-    "show-icon": true,
+    "show-icon": false,
     "tooltip": false,
     "hide-if-empty": true
   },
@@ -154,7 +153,7 @@
 		"format-ethernet": "{cidr}",
 		"tooltip-format": "{ifname} {essid}\nvia {gwaddr}",
 		"format-linked": "{ifname} (No IP)",
-		"format-disconnected": "⚠",
+		"format-disconnected": "NAI",
 		"format-alt": "{ifname}: {ipaddr}/{cidr}"
 	},
   "backlight": {
