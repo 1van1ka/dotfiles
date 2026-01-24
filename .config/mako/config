@@ -1,5 +1,5 @@
 # Global settings
-font=JetBrains Mono 12
+font=FiraCode 12
 sort=+time
 default-timeout=5000
 width=420
