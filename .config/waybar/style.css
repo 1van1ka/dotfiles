@@ -5,7 +5,7 @@
 @define-color critical rgba(130, 40, 40, 1);
 
 * {
-  font-family: "JetBrains Mono";
+  font-family: "FiraCode";
   font-weight: 800;
   font-size: 16px;
 }
