@@ -14,7 +14,7 @@
     "network",
     "group/power",
     "custom/mako",
-		"clock"
+    "group/time"
 	],
   "group/hardware": {
     "orientation": "inherit",
@@ -38,6 +38,17 @@
     "modules": [
       "battery",
       "power-profiles-daemon"
+    ]
+  },
+  "group/time": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": [
+	    "clock",
+	    "mpd"
     ]
   },
   "group/light": {
@@ -74,6 +85,24 @@
     "icon-size": 20,
     "spacing": 10
   },
+	"mpd": {
+	    "format": "{stateIcon} {randomIcon}{repeatIcon} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+	    "format-disconnected": "Disconnected",
+	    "format-stopped": "{randomIcon}{repeatIcon} Stopped",
+	    "interval": 10,
+	    "random-icons": {
+		"on": " "
+	    },
+	    "repeat-icons": {
+		"on": " "
+	    },
+	    "state-icons": {
+		"playing": "",
+		"paused": ""
+	    },
+	    "tooltip-format": "MPD (connected)",
+	    "tooltip-format-disconnected": "MPD (disconnected)"
+	},
 	"clock": {
     "format": "{:%a %H:%M %d.%m.%y}",
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",

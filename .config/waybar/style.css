@@ -25,6 +25,7 @@
   border-radius: 4px;
 }
 
+
 #backlight-slider trough,
 #pulseaudio-slider trough {
   min-height: 8px;
@@ -47,6 +48,8 @@
   border-radius: 8px;
 }
 
+#mpd.paused,
+#mpd.stopped,
 #network.disconnected,
 #pulseaudio.muted,
 #upower.discharging,
@@ -54,7 +57,12 @@
   background: @warning;
 }
 
+#mpd.playing,
 #battery.charging,
 #upower.charging {
   background: @valid;
+}
+
+#mpd.disconnected {
+  background: @critical;
 }
