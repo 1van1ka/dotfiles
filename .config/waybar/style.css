@@ -18,7 +18,7 @@
 #pulseaudio, #pulseaudio-slider,
 #backlight, #backlight-slider,
 #custom-arrow-left, #custom-arrow-right,
-#custom-mako, #upower {
+#custom-mako, #upower, #bluetooth {
   margin: 3px 3px;
   padding: 0 10px;
   background: @bg;
@@ -48,15 +48,18 @@
   border-radius: 8px;
 }
 
+#custom-mako,
 #mpd.paused,
 #mpd.stopped,
 #network.disconnected,
 #pulseaudio.muted,
 #upower.discharging,
-#battery.discharging {
+#battery.discharging,
+#bluetooth.on {
   background: @warning;
 }
 
+#bluetooth.connected,
 #mpd.playing,
 #battery.charging,
 #upower.charging {
